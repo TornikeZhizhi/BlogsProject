@@ -1,0 +1,17 @@
+.categories_list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  width: 100%;
+  margin: 10% auto;
+}
+.categories_list li {
+  list-style-type: none;
+  margin: 3px;
+  border-radius: 8px;
+  padding: 5px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
