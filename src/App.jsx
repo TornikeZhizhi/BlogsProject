@@ -1,21 +1,23 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import "./App.css";
-import Home from "./pages/Home";
-import Contact from "./pages/Contact";
-import BlogContext from "./Context/BlogContex";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BlogContextProvider } from "./context/BlogContextProvider";
+import BlogDetail from "./pages/blogDetail/BlogDetail";
+import HomePage from "./pages/homePage/HomePage";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/contact", element: <Contact /> },
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/blog/:id",
+    element: <BlogDetail />,
+  },
 ]);
-
 function App() {
   return (
-    <>
-      <BlogContext>
-        <RouterProvider router={router}></RouterProvider>
-      </BlogContext>
-    </>
+    <BlogContextProvider>
+      <RouterProvider router={router} />
+    </BlogContextProvider>
   );
 }
 
