@@ -6,7 +6,7 @@ export const BlogThemeContext = createContext();
 
 function BlogContextProvider(props) {
   const [blogsList, setBlogsList] = useState([]);
-
+  const [urlParams, seturlParams] = useState([]);
   const BASE_URL = "https://api.blog.redberryinternship.ge/api/blogs";
   const token =
     "5e4977d25fb8a029227f395a8d29b694059c94c67d1253b1930c154111b277c1"; // Consider a more secure method for storing tokens
@@ -19,16 +19,12 @@ function BlogContextProvider(props) {
     }
   }, [data]);
 
-  // const params = useParams();
-  // console.log(params.id);
-
-  const filterHandler = (categoryId) => {
-    console.log(categoryId);
-    if (categoryId.length < 1) {
+  useEffect(() => {
+    if (urlParams.length < 1) {
       setBlogsList(data.data);
     } else {
       const filteredBlogs = data.data?.filter((blog) => {
-        return categoryId.some((categoryIdItem) => {
+        return urlParams.some((categoryIdItem) => {
           return blog.categories.some(
             (blogCategory) => blogCategory.id === categoryIdItem
           );
@@ -36,7 +32,10 @@ function BlogContextProvider(props) {
       });
       setBlogsList(filteredBlogs);
     }
-    // Update the state with the filtered list
+  }, [urlParams, data]);
+
+  const filterHandler = (categoryId) => {
+    seturlParams(categoryId);
   };
 
   return (
