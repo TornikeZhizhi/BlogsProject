@@ -8,6 +8,7 @@ const BASE_URL = "https://api.blog.redberryinternship.ge/api/categories";
 
 function Categories() {
   const [categoryId, setCategoryId] = useState([]);
+  const [activeCategories, setActiveCategories] = useState([]);
   const { filterHandler } = useBlogs();
   const { data } = DataFetcher(BASE_URL);
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ function Categories() {
       }
     }
     setCategoryId(urlParams);
+    setActiveCategories(urlParams);
   }, []);
 
   useEffect(() => {
@@ -41,20 +43,23 @@ function Categories() {
 
   function handlerId(id) {
     setCategoryId((prevIds) => {
-      if (prevIds.includes(id)) {
-        return prevIds.filter((existingId) => existingId !== id);
-      } else {
-        return [...prevIds, id];
-      }
+      const updatedIds = prevIds.includes(id)
+        ? prevIds.filter((existingId) => existingId !== id)
+        : [...prevIds, id];
+
+      setActiveCategories(updatedIds);
+      return updatedIds;
     });
   }
 
   return (
     <ul className={styles.category_box}>
-      {data.data?.map((category) => (
+      {data.data?.map((category, index) => (
         <li
           onClick={() => handlerId(category.id)}
-          className={styles.category_list}
+          className={`${styles.category_list} ${
+            activeCategories.includes(category.id) ? styles.category_active : ""
+          }`}
           style={{
             backgroundColor: `${category.background_color}`,
           }}
