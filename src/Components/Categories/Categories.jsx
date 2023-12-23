@@ -10,7 +10,6 @@ function Categories() {
   const [categoryId, setCategoryId] = useState([]);
   const { filterHandler } = useBlogs();
   const { data } = DataFetcher(BASE_URL);
-  // console.log(blogsList);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -28,15 +27,6 @@ function Categories() {
     setCategoryId(urlParams);
   }, []);
 
-  function handlerId(id) {
-    setCategoryId((prevIds) => {
-      if (prevIds.includes(id)) {
-        return prevIds.filter((existingId) => existingId !== id);
-      } else {
-        return [...prevIds, id];
-      }
-    });
-  }
   useEffect(() => {
     const queryString = categoryId
       .map((id, index) => `categoryId${index + 1}=${id}`)
@@ -48,6 +38,16 @@ function Categories() {
     });
     filterHandler(categoryId);
   }, [categoryId]);
+
+  function handlerId(id) {
+    setCategoryId((prevIds) => {
+      if (prevIds.includes(id)) {
+        return prevIds.filter((existingId) => existingId !== id);
+      } else {
+        return [...prevIds, id];
+      }
+    });
+  }
 
   return (
     <ul className={styles.category_box}>

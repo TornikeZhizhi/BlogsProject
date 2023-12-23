@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import DataFetcher from "../utilis/DataFetcher";
 
 export const BlogThemeContext = createContext();
