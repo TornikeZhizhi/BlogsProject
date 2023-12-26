@@ -1,14 +1,13 @@
 import styles from "./BlogCard.module.css";
-import ViewMoreArrow from "../../../public/images/arrow.svg";
+import viewMoreArrow from "../../../../public/images/Arrow.svg";
 
 import { Link } from "react-router-dom";
 import BlogCategories from "../blogCategories/BlogCategories";
-import { useBlogs } from "../../context/BlogContextProvider";
 
-function BlogCard({ blogCard }) {
+function BlogCard({ blogCard, slider }) {
   return (
     <>
-      <div className={styles.blog}>
+      <div className={styles.blog + (slider ? " blogInner_slider_box" : "")}>
         <div className={styles.blog_img}>
           <img src={blogCard.image} />
         </div>
@@ -29,7 +28,7 @@ function BlogCard({ blogCard }) {
         </div>
         <Link to={`/blog/${blogCard.id}`} className={styles.view_more}>
           <span>სრულად ნახვა</span>
-          <img src={ViewMoreArrow} alt="see more" />
+          <img src={viewMoreArrow} alt="see more" />
         </Link>
       </div>
     </>

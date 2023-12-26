@@ -5,11 +5,18 @@
   align-items: center;
   list-style: none;
   padding: 20px 76px;
+  position: relative;
 }
 
 .logo {
   width: 150px;
   height: 24px;
+}
+
+.addblog_logo {
+  width: 150px;
+  height: 24px;
+  margin: 0 auto;
 }
 .logo img {
   width: 100%;
@@ -17,11 +24,14 @@
   object-fit: contain;
 }
 
-.login button {
+.header_btn {
   background-color: #5d37f3;
   color: #fff;
   border: none;
   padding: 10px;
   border-radius: 8px;
   font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
 }

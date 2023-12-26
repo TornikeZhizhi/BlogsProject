@@ -14,10 +14,5 @@
   text-align: center;
   margin: 0 24px 24px 0;
   cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.3s;
-}
-
-.category_active {
-  border-color: #000;
+  border: 1px solid transparent;
 }
