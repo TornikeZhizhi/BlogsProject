@@ -4,18 +4,40 @@ import { useBlogs } from "../../context/BlogContextProvider";
 import BlogCard from "../blogs/blogCard/BlogCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Import Swiper styles
-import "swiper/css";
-// import "swiper/css/navigation";
+import prevArrow from "../../../public/images/slider-arrow-prev.png";
+import nextArrow from "../../../public/images/slider-arrow-next.png";
 
-// import { Navigation, Mousewheel, Keyboard } from "swiper/modules";
+import "swiper/css";
 
 function Slider({ categoryId }) {
+  const [nextSlide, setNextSlide] = useState(true);
+  const [prevSlide, setPrevSlide] = useState(false);
   const [sliderData, setSliderData] = useState([]);
   const { blogsList } = useBlogs();
   const params = useParams();
 
   const sliderRef = useRef(null);
+
+  useEffect(() => {
+    if (!sliderRef.current) return;
+
+    const swiperInstance = sliderRef.current.swiper;
+
+    swiperInstance.on("reachEnd", () => {
+      setNextSlide(false);
+      setPrevSlide(true);
+    });
+
+    swiperInstance.on("reachBeginning", () => {
+      setPrevSlide(false);
+      setNextSlide(true);
+    });
+
+    return () => {
+      swiperInstance.off("reachEnd");
+      swiperInstance.off("reachBeginning");
+    };
+  }, [sliderData]);
 
   const handlePrev = () => {
     if (!sliderRef.current) return;
@@ -49,21 +71,36 @@ function Slider({ categoryId }) {
   return (
     <div className="common_container">
       <div className="slider_header">
-        <span>მსგავსი პოსტები</span>
+        <span>მსგავსი სტატიები</span>
 
         <div className="slider_navigation">
-          <div className="prev-arrow" onClick={handlePrev} />
-          <div className="next-arrow" onClick={handleNext} />
+          <div className="prev-arrow" onClick={handlePrev}>
+            <img
+              style={{
+                backgroundColor: prevSlide ? "#5d37f3" : "#E4E3EB",
+              }}
+              className="arrow"
+              src={prevArrow}
+            />
+          </div>
+          <div className="next-arrow" onClick={handleNext}>
+            <img
+              style={{
+                backgroundColor:
+                  nextSlide && sliderData.length > 3 ? "#5d37f3" : "#E4E3EB",
+              }}
+              className="arrow"
+              src={nextArrow}
+            />
+          </div>
         </div>
       </div>
       <Swiper
         ref={sliderRef}
         slidesPerView={3}
         cssMode={true}
-        // navigation={true}
         mousewheel={true}
         keyboard={true}
-        // modules={[Navigation, Mousewheel, Keyboard]}
         className="mySwiper"
       >
         {sliderData?.map((blog, index) => (
