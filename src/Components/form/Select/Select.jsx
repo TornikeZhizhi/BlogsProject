@@ -19,52 +19,30 @@ const MenuProps = {
     },
   },
 };
-let category = [
-  { name: "კვლება", id: 1 },
-  { name: "კვლება", id: 1 },
-];
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-let x = [1, 2];
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
-// let numbArray = ["მარკეტი", "ხელოვნური ინტელექტი"];
+// function getStyles(name, personName, theme) {
+//   return {
+//     fontWeight:
+//       personName.indexOf(name) === -1
+//         ? theme.typography.fontWeightRegular
+//         : theme.typography.fontWeightMedium,
+//   };
+// }
 
 export default function MultipleSelectChip({ selectArray }) {
-  const { inputValues, handleInputChange } = useUpload();
-  const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const { handleInputChange } = useUpload();
+  // const theme = useTheme();
+  const [listName, setListName] = React.useState([]);
 
   const handleChange = (event) => {
     handleInputChange(event);
     const {
       target: { value },
     } = event;
-    setPersonName(
+    setListName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-  };
-
-  const testiko = () => {
-    console.log("ss");
   };
 
   return (
@@ -77,11 +55,12 @@ export default function MultipleSelectChip({ selectArray }) {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={personName}
+          value={listName}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {console.log(selected)}
               {selected.map((value) => (
                 <>
                   <Chip key={value} label={value} />
