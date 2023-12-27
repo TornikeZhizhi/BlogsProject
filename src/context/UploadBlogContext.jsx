@@ -58,9 +58,9 @@ function UploadBlogContext(props) {
         ...prevValues,
         [name]: value,
       }));
-      if (name.trim().replace(/\s+/g, "").length < 4 && name.trim() !== "") {
-        setValidSymbols(false);
-      }
+      // if (name.trim().replace(/\s+/g, "").length < 4 && name.trim() !== "") {
+      //   setValidSymbols(false);
+      // }
     }
   };
 

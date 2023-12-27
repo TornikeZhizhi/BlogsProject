@@ -63,9 +63,14 @@ export default function MultipleSelectChip({ selectArray }) {
     );
   };
 
+  const testiko = () => {
+    console.log("ss");
+  };
+
   return (
     <div>
       <FormControl sx={{ m: 1, width: 288 }}>
+        <div className="white_shade"></div>
         <InputLabel id="demo-multiple-chip-label">კატეგორია</InputLabel>
         <Select
           className="upload_select"
@@ -78,7 +83,9 @@ export default function MultipleSelectChip({ selectArray }) {
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <>
+                  <Chip key={value} label={value} />
+                </>
               ))}
             </Box>
           )}
@@ -88,6 +95,11 @@ export default function MultipleSelectChip({ selectArray }) {
             <MenuItem
               key={name.id}
               value={name.title}
+              className="select_list"
+              style={{
+                backgroundColor: name.background_color,
+                color: name.text_color,
+              }}
               // style={getStyles(name, personName, theme)}
             >
               {name.title}
