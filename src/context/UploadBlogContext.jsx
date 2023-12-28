@@ -32,7 +32,7 @@ function UploadBlogContext(props) {
   function getIdsByTitles(titleArray) {
     return titleArray.map((title) => {
       const catItem = catArray.find((item) => item.title === title);
-      return catItem ? catItem.id : null;
+      return catItem ? catItem.id.toString() : null;
     });
   }
   //
@@ -49,7 +49,7 @@ function UploadBlogContext(props) {
       const result = getIdsByTitles(value);
       setInputValues((prevValues) => ({
         ...prevValues,
-        category_input: result,
+        category_input: "[" + result.join(",") + "]",
       }));
       localStorage.setItem(name, value);
     } else {
