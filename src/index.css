@@ -199,3 +199,11 @@
   font-size: 19px !important;
   color: #fff !important;
 }
+
+.css-1nrlq1o-MuiFormControl-root {
+  margin-top: 9px !important;
+}
+
+textarea {
+  resize: none;
+}
