@@ -194,3 +194,8 @@
 .css-yi3mkw {
   margin-bottom: 1px !important;
 }
+
+.css-185x04f-MuiButtonBase-root-MuiChip-root .MuiChip-deleteIcon {
+  font-size: 19px !important;
+  color: #fff !important;
+}
