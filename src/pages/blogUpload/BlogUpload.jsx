@@ -15,9 +15,13 @@ import DataFetcherGet from "../../utilis/DataFetcherGet";
 function BlogUpload() {
   const [successPopUp, setSuccessPopUp] = useState(false);
   const { inputValues, handleInputChange } = useUpload();
-  const [borderColor, setBorderColor] = useState(false);
+  const [borderColor, setBorderColor] = useState("green");
+  const [isAuthorValid, setIsAuthorValid] = useState(false);
   const Category_URL = "https://api.blog.redberryinternship.ge/api/categories";
   const { blogData } = DataFetcherGet(Category_URL);
+
+  // console.log(inputValues.category_input);
+  // console.log(inputValues);
 
   const email = inputValues.email_input;
   const author = inputValues.author_input;
@@ -41,17 +45,23 @@ function BlogUpload() {
 
   const titleValid = title.trim().length < 2;
 
+  // function authorValid() {
+  //   if (!valideAlphabet || !authorSymbolsValidate || !authorWordsValidate) {
+  //     setBorderColor("red");
+  //   } else {
+  //     // If all conditions are met, you might want to set the border color to green or another color
+  //     setBorderColor("green");
+  //   }
+  // }
   useEffect(() => {
-    if (valideAlphabet && authorSymbolsValidate && authorWordsValidate) {
-      setBorderColor("red");
-    } else {
-      if (valideAlphabet || authorSymbolsValidate || authorWordsValidate) {
-        setBorderColor("green");
-      } else {
-        setBorderColor("grey");
-      }
-    }
-  }, [authorWordsValidate, valideAlphabet, authorSymbolsValidate]);
+    // Check all conditions for author validation
+    const isValidAuthor =
+      valideAlphabet && !authorSymbolsValidate && !authorWordsValidate;
+
+    // Set border color based on validation result
+    // setBorderColor(isValidAuthor ? "green" : author === "" ? "grey" : "red");
+    setIsAuthorValid(isValidAuthor);
+  }, [author, authorWordsValidate, valideAlphabet, authorSymbolsValidate]);
 
   const handleCreateRequest = async (e) => {
     e.preventDefault();
@@ -102,12 +112,14 @@ function BlogUpload() {
             <div className={styles.author_title}>
               <div className={styles.author}>
                 <Input
-                  // className={
-                  //   validAuthor && valideAlphabet
-                  //     ? styles.success_border
-                  //     : styles.error_border
-                  // }
-                  style={{ border: `1px solid ${borderColor}` }}
+                  className={
+                    isAuthorValid
+                      ? styles.success_border
+                      : author === ""
+                      ? styles.default_border
+                      : styles.error_border
+                  }
+                  // style={{ border: `1px solid ${borderColor}` }}
                   label="ავტორი"
                   name="author_input"
                   autoComplete="off"

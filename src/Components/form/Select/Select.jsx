@@ -31,7 +31,6 @@ const MenuProps = {
 
 export default function MultipleSelectChip({ selectArray }) {
   const { handleInputChange } = useUpload();
-  // const theme = useTheme();
   const [listName, setListName] = React.useState([]);
 
   const handleChange = (event) => {
@@ -60,7 +59,6 @@ export default function MultipleSelectChip({ selectArray }) {
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-              {console.log(selected)}
               {selected.map((value) => (
                 <>
                   <Chip key={value} label={value} />
@@ -79,7 +77,6 @@ export default function MultipleSelectChip({ selectArray }) {
                 backgroundColor: name.background_color,
                 color: name.text_color,
               }}
-              // style={getStyles(name, personName, theme)}
             >
               {name.title}
             </MenuItem>

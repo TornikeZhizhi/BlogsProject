@@ -24,7 +24,7 @@ function UploadBlogContext(props) {
     description_input: "",
     author_input: "",
     date_input: "",
-    category_input: [],
+    category_input: "",
     email_input: "",
     upload_input: "",
   });
@@ -47,20 +47,16 @@ function UploadBlogContext(props) {
     const { name, value } = e.target;
     if (isEmptyArray(value) == false) {
       const result = getIdsByTitles(value);
-      console.log(result);
       setInputValues((prevValues) => ({
         ...prevValues,
         category_input: result,
       }));
-    } else {
       localStorage.setItem(name, value);
+    } else {
       setInputValues((prevValues) => ({
         ...prevValues,
         [name]: value,
       }));
-      // if (name.trim().replace(/\s+/g, "").length < 4 && name.trim() !== "") {
-      //   setValidSymbols(false);
-      // }
     }
   };
 
