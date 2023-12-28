@@ -61,7 +61,7 @@ export default function MultipleSelectChip({ selectArray, label }) {
     setListName(deleteData);
   };
 
-  const test = () => {
+  const bgArray = () => {
     const getBackgroundColors = (names, data) => {
       return names.map((name) => {
         const foundItem = data.find((item) => item.title === name);
@@ -69,9 +69,8 @@ export default function MultipleSelectChip({ selectArray, label }) {
       });
     };
 
-    const names = ["მარკეტი", "სამედიცინო"];
     const backgroundColors = getBackgroundColors(listName, catArray);
-    console.log(backgroundColors);
+
     return backgroundColors;
   };
 
@@ -97,7 +96,7 @@ export default function MultipleSelectChip({ selectArray, label }) {
                     key={index}
                     label={value}
                     clickable
-                    style={{ backgroundColor: test()[index], color: "#fff" }}
+                    style={{ backgroundColor: bgArray()[index], color: "#fff" }}
                     deleteIcon={
                       <CloseIcon
                         onMouseDown={(event) => event.stopPropagation()}
