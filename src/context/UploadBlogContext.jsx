@@ -52,10 +52,10 @@ function UploadBlogContext(props) {
     let file = "";
     if (localStorage.getItem("image")) {
       const fileObject = JSON.parse(localStorage.getItem("image"));
-      console.log(
-        fileObject?.name,
-        " inputValues.upload_input?.name inputValues.upload_input?.name"
-      );
+      // console.log(
+      //   fileObject?.name,
+      //   " inputValues.upload_input?.name inputValues.upload_input?.name"
+      // );
 
       file = dataURLtoFile(fileObject.blob, fileObject?.name);
     }
@@ -63,7 +63,6 @@ function UploadBlogContext(props) {
     //   localStorage.getItem("image"),
     //   inputValues.upload_input?.name
     // );
-    console.log(file, "rrrrrrrrrrr");
 
     setInputValues((prevValues) => ({
       ...prevValues,
@@ -118,13 +117,12 @@ function UploadBlogContext(props) {
         };
       });
     }
-    console.log(inputValues);
+    // console.log(inputValues);
   };
 
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
-    console.log(file, "fffff");
-    // localStorage.setItem("imageeeeee", file);
+    // console.log(file, "fffff");
 
     if (file) {
       setInputValues((prevValues) => ({
@@ -152,6 +150,22 @@ function UploadBlogContext(props) {
     }));
     localStorage.removeItem("image");
   };
+
+  function handleCleanValues() {
+    // Clearing the local storage form values
+    localStorage.removeItem("form_values");
+
+    // Resetting the inputValues state to its initial/default state
+    setInputValues({
+      title_input: "",
+      description_input: "",
+      author_input: "",
+      date_input: "",
+      category_input: "",
+      email_input: "",
+      upload_input: "",
+    });
+  }
   return (
     <UploadBlogTheme.Provider
       value={{
@@ -159,6 +173,7 @@ function UploadBlogContext(props) {
         handleFileInputChange,
         handleInputChange,
         clearFile,
+        handleCleanValues,
       }}
     >
       {props.children}
