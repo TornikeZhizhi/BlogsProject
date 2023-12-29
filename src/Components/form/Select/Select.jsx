@@ -8,7 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Chip from "@mui/material/Chip";
 import { useUpload } from "../../../context/UploadBlogContext";
-
+import "./select.css";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ITEM_HEIGHT = 48;
