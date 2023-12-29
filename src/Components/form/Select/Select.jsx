@@ -37,16 +37,25 @@ let catArray = [
   { id: 13, title: "სამედიცინო", background_color: "#FFBB2F" },
   { id: 14, title: "სხვა", background_color: "#FA5757" },
 ];
+
+let CatId = JSON.parse(localStorage.getItem("form_values"))?.category_input;
+let filteredCategories = catArray.filter((category) =>
+  CatId.includes(category.id)
+);
+
+// Extract titles from filteredCategories
+let titles = filteredCategories.map((category) => category.title);
+
 export default function MultipleSelectChip({ selectArray, label }) {
   const { handleInputChange } = useUpload();
-  const [listName, setListName] = React.useState([]);
-  // console.log(listName);
+  const [listName, setListName] = React.useState(titles || []);
+
   const handleChange = (e) => {
     handleInputChange(e);
     const {
       target: { value },
     } = e;
-    console.log(value);
+
     setListName(
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
@@ -60,6 +69,21 @@ export default function MultipleSelectChip({ selectArray, label }) {
     });
 
     setListName(deleteData);
+
+    let filteredCategories = catArray.filter((category) =>
+      deleteData.includes(category.title)
+    );
+
+    // Extract IDs from filteredCategories
+    let ids = filteredCategories.map((category) => category.id);
+
+    let storedFormValues =
+      JSON.parse(localStorage.getItem("form_values")) || {};
+
+    // let arrNumbs = [2, 3, 1];
+    storedFormValues.category_input = JSON.stringify(ids);
+
+    localStorage.setItem("form_values", JSON.stringify(storedFormValues));
   };
 
   const bgArray = () => {
@@ -91,6 +115,7 @@ export default function MultipleSelectChip({ selectArray, label }) {
           input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {/* {console.log(selected)} */}
               {selected.map((value, index) => (
                 <>
                   <Chip
