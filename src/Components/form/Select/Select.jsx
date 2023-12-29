@@ -40,7 +40,7 @@ let catArray = [
 
 let CatId = JSON.parse(localStorage.getItem("form_values"))?.category_input;
 let filteredCategories = catArray.filter((category) =>
-  CatId.includes(category.id)
+  CatId?.includes(category.id)
 );
 
 // Extract titles from filteredCategories
